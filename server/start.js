@@ -4,6 +4,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')
+const session = require('express-session')
+
 
 // Bones has a symlink from node_modules/APP to the root of the app.
 // That means that we can require paths relative to the app root by
@@ -19,6 +21,12 @@ if (!pkg.isProduction && !pkg.isTesting) {
   app.use(require('volleyball'))
 }
 
+// app.use(session({
+//   secret: 'Grace Shoepper',
+//   resave: false,
+//   saveUninitialized: true
+// }))
+
 module.exports = app
   // We'll store the whole session in a cookie
   .use(require('cookie-session') ({
@@ -33,7 +41,7 @@ module.exports = app
   // Authentication middleware
   .use(passport.initialize())
   .use(passport.session())
-  
+
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
 
@@ -45,12 +53,12 @@ module.exports = app
 
 if (module === require.main) {
   // Start listening only if we're the main module.
-  // 
+  //
   // https://nodejs.org/api/modules.html#modules_accessing_the_main_module
   const server = app.listen(
     process.env.PORT || 1337,
     () => {
-      console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
+      console.log(`--- Started HTTP Server for ${pkg.name} ---`)
       console.log(`Listening on ${JSON.stringify(server.address())}`)
     }
   )

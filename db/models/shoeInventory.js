@@ -1,26 +1,29 @@
+
 'use strict'
 
 const Sequelize = require('sequelize')
-const db = require('APP/db')
+const db = require('../index')
 
 const ShoeInventory = db.define('shoe_inventory', {
     size: {
       type: Sequelize.FLOAT,
-      allowNull: false
-      }, 
+      allowNull: false,
+      validate: {
+        min: 4,
+        max: 20
+      }
+      },
     color: {
       type: Sequelize.STRING,
       allowNull: false
     },
     quantity: {
       type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    price: {
-      type: Sequelize.FLOAT,
-      allowNull: false
-    }	
-
-}, {});
+      allowNull: false,
+      validate: {
+        min: 0
+      }
+    }
+  }, {});
 
 module.exports = ShoeInventory;

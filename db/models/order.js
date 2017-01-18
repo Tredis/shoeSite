@@ -1,12 +1,12 @@
 'use strict'
 
 const Sequelize = require('sequelize')
-const db = require('APP/db')
+const db = require('../index')
 
 const Order = db.define('order', {
-    date: {
+    datePlaced: {
       type: Sequelize.DATE,
-      }, 
+      },
     tracking: {
       type: Sequelize.STRING
     },
@@ -16,10 +16,13 @@ const Order = db.define('order', {
     payment: {
       type: Sequelize.STRING,
     },
+    totalPrice: {
+      type: Sequelize.INTEGER
+    },
     status: { //Pending when in cart and placed
-      type: Sequelize.STRING,
+      type: Sequelize.ENUM('pending', 'shipped'),
       allowNull: false
-    }	
+    }
 
 }, {});
 

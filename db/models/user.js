@@ -2,11 +2,10 @@
 
 const bcrypt = require('bcrypt')
 const Sequelize = require('sequelize')
-const db = require('APP/db')
-
+const db = require('../index')
 const User = db.define('user', {
 
-  firstname: Sequelize.STRING,  
+  firstname: Sequelize.STRING,
   lastname: Sequelize.STRING,
   address: {
     type: Sequelize.STRING
@@ -38,7 +37,7 @@ const User = db.define('user', {
           (err, result) =>
             err ? reject(err) : resolve(result))
         )
-    }    
+    }
   }
 })
 

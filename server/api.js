@@ -1,3 +1,4 @@
+
 'use strict'
 
 const db = require('APP/db')
@@ -7,9 +8,13 @@ api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
+  .use('/shoes', require('./shoes'))
+  .use('/comments', require('./comments'))
+  .use('/orders', require('./orders'))
 
 // Send along any errors
 api.use((err, req, res, next) => {
+  console.log(err, err.stack)
   res.status(500).send(err)
 })
 
